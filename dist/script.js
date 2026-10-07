@@ -89,7 +89,7 @@ function openOffer(autoClose = false) {
   closeNavigation();
   offerDialog.showModal();
   document.body.classList.add('dialog-open');
-  if (autoClose) autoOfferTimer = window.setTimeout(closeOffer, 5000);
+  if (autoClose) autoOfferTimer = window.setTimeout(closeOffer, 3000);
 }
 function closeOffer() {
   cancelAutoOffer();
@@ -118,7 +118,7 @@ function showArrivalOffer() {
   arrivalOfferPending = false;
   openOffer(true);
 }
-// Show on every page load, then close after five seconds. The offer button can
+// Show on every page load, then close after three seconds. The offer button can
 // reopen it without a time limit so visitors can read and book at their own pace.
 showArrivalOffer();
 document.addEventListener('visibilitychange', () => {

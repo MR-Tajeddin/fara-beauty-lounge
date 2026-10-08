@@ -72,7 +72,7 @@ document.addEventListener('keydown', event => {
     toggle.focus();
   }
 });
-window.matchMedia('(min-width: 801px)').addEventListener('change', event => { if (event.matches) closeNavigation(); });
+window.matchMedia('(min-width: 901px)').addEventListener('change', event => { if (event.matches) closeNavigation(); });
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // The supplied promotion is for October 2026, in the salon's Toronto timezone.
@@ -126,3 +126,22 @@ document.addEventListener('visibilitychange', () => {
   showArrivalOffer();
 });
 window.setInterval(refreshOffer, 60000);
+
+// Client review carousel, with explicit controls and no automatic movement.
+const reviewSection = document.querySelector('.reviews');
+const reviewCards = [...document.querySelectorAll('.review-card')];
+const reviewControls = [...document.querySelectorAll('[data-review]')];
+function showReview(index) {
+  reviewCards.forEach((card, position) => {
+    const active = position === index;
+    card.classList.toggle('active', active);
+    card.hidden = !active;
+  });
+  reviewControls.forEach((control, position) => {
+    control.classList.toggle('active', position === index);
+    control.setAttribute('aria-pressed', String(position === index));
+  });
+}
+reviewSection.classList.add('is-enhanced');
+reviewControls.forEach(control => control.addEventListener('click', () => showReview(Number(control.dataset.review))));
+showReview(0);
